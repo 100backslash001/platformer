@@ -10,12 +10,12 @@ class Game:
     def __init__(self) -> None:
         pygame.init()
         
-        self.screen = pygame.display.set_mode((WIDTH, HEIGHT))
+        self.screen: pygame.surface.Surface = pygame.display.set_mode((WIDTH, HEIGHT))
         pygame.display.set_caption('Test')
         
-        self.clock = pygame.time.Clock()
+        self.clock: pygame.time.Clock = pygame.time.Clock()
         
-        self.scene_manager = SceneManager()
+        self.scene_manager: SceneManager = SceneManager()
         self.scene_manager.add_scene(Level1())
 
     def run(self):

@@ -10,24 +10,24 @@ class IScene(ABC):
         pass
     
     @abstractclassmethod
-    def draw(self):
+    def draw(self) -> None:
         pass
     
     @abstractclassmethod
-    def update(self):
+    def update(self) -> None:
         pass
 
 
 class Scene(IScene):
     def __init__(self) -> None:
-        self.display_surface = pygame.display.get_surface()
-        self.display_rect = self.display_surface.get_rect()
+        self.display_surface: pygame.surface.Surface = pygame.display.get_surface()
+        self.display_rect: pygame.Rect = self.display_surface.get_rect()
 
-        self.quit_scene = pygame.USEREVENT + 1
+        self.quit_scene: int = pygame.USEREVENT + 1
         
-        self.next_scene = None
+        self.next_scene: Scene = None
     
-    def draw(self):
+    def draw(self) -> None:
         raise NotImplementedError('Draw must be overridden in child class')
     
     def update(self):
@@ -38,13 +38,13 @@ class Level1(Scene):
     def __init__(self) -> None:
         super().__init__()
     
-    def draw(self):
+    def draw(self) -> None:
         pygame.draw.rect(self.display_surface, Colors.red.value, pygame.Rect(100, 100, 200, 200))
     
-    def update(self):
-        event = pygame.event.wait()
+    def update(self) -> None:
+        event: pygame.event.Event = pygame.event.wait()
         if event.type == pygame.KEYDOWN and event.key == pygame.K_RIGHT:
-            self.next_scene = Level2()
+            self.next_scene: Scene = Level2()
             pygame.event.post(pygame.event.Event(self.quit_scene))
 
 
@@ -52,13 +52,13 @@ class Level2(Scene):
     def __init__(self) -> None:
         super().__init__()
     
-    def draw(self):
+    def draw(self) -> None:
         pygame.draw.rect(self.display_surface, Colors.blue.value, pygame.Rect(100, 100, 200, 200))
     
-    def update(self):
-        event = pygame.event.wait()
+    def update(self) -> None:
+        event: pygame.event.Event = pygame.event.wait()
         if event.type == pygame.KEYDOWN and event.key == pygame.K_RIGHT:
-            self.next_scene = Level3()
+            self.next_scene: Scene = Level3()
             pygame.event.post(pygame.event.Event(self.quit_scene))
     
 
@@ -66,8 +66,8 @@ class Level3(Scene):
     def __init__(self) -> None:
         super().__init__()
     
-    def draw(self):
+    def draw(self) -> None:
         pygame.draw.rect(self.display_surface, Colors.green.value, pygame.Rect(100, 100, 200, 200))
     
-    def update(self):
+    def update(self) -> None:
         pass
